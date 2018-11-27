@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<style>
+[v-cloak]{display: none;}
+</style>
+<body>
+    <script src="./lib/vue.js"></script>
+    <div v-cloak id="app"> <!-- v-cloak vue渲染完成后自动去掉该属性 -->
+        <p>{{ msg }}</p> <!-- 插值表达式 -->
+        <p v-text='msg2'>===</p> <!-- v-text 替换标签内内容，文本模式 -->
+        <p v-html='msg3'>+++</p> <!-- v-html 替换标签内内容，html模式 -->
+        <p v-bind:title='mytitle + "123"' v-on:click='show'>hahaha</p> <!-- v-bind 绑定属性，值可以是合法js表达式 -->
+    </div>
+
+</body>
+<script>
+    var vm = new Vue({
+        el:'#app',
+        data:{
+            'msg':'123',
+            'msg2':'我是msg2',
+            'msg3':'<h4>我是h4</h4>',
+            'mytitle':'vuetitle',
+        },
+        methods:{
+            show:function(){
+                alert('hello')
+            }
+        }
+    })
+</script>   
+</html>
