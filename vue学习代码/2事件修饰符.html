@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="lib/vue.js"></script>
+    <style>
+    .outer{
+        padding: 20px;
+        background-color: red;
+    }
+    .inner{
+        height: 150px;
+        background-color: yellow;
+    }
+    </style>
+</head>
+
+
+
+<body>
+    
+    <div id="app"> 事件修饰符 .stop .prevent .capture .self .once <br>
+        <!-- 事件修饰符 .stop .prevent .capture .self .once -->
+        
+        <!-- .stop 使用 阻止本层向上冒泡 -->
+        .stop 使用 阻止本层向上冒泡
+        <div class="outer" @click='outerclick'>
+            <div class="inner" @click.stop='innerclick'>
+                <input type="button" value="点击" @click='btnclick'>
+            </div>
+        </div>
+
+        <!-- .prevent 阻止html标签默认事件 -->
+        .prevent 阻止html标签默认事件
+        <a href="http://www.baidu.com" @click.prevent>我是百度</a>
+
+        <!-- .capture 事件传递方式变为捕获,而不是默认的冒泡,并且优先执行捕获，能捕获被组织的事件 -->
+        .capture 事件传递方式变为捕获,而不是默认的冒泡,并且优先执行捕获，能捕获被组织的事件
+        <div class="outer" @click.capture='outerclick'>
+            <div class="inner" @click='innerclick'>
+                <input type="button" value="点击" @click.stop='btnclick'>
+            </div>
+        </div>
+
+        <!-- .self 只有事件发生在自己身上才触发，不管是捕获或是冒泡均无法触发，但是不影响捕获和冒泡过程-->
+        .self 只有事件发生在自己身上才触发，不管是捕获或是冒泡均无法触发，但是不影响捕获和冒泡过程
+        <div class="outer" @click='outerclick'>
+            <div class="inner" @click.self='innerclick'>
+                <input type="button" value="点击" @click='btnclick'>
+            </div>
+        </div>
+        
+        <!-- .once 事件只触发一次-->
+        .once 事件只触发一次
+        <div class="outer" @click='outerclick'>
+            <div class="inner" @click.once='innerclick'>
+                <input type="button" value="点击" @click='btnclick'>
+            </div>
+        </div>
+
+
+        
+        
+
+    </div>
+</body>
+<script>
+    var vm = new Vue({
+        el: '#app',
+        data: {
+
+        },
+        methods: {
+            btnclick(){
+                console.log('点击 btn')
+            },
+            innerclick(){
+                console.log('点击 inner')
+            },
+            outerclick(){
+                console.log('点击 outter')
+            }
+        }
+    })
+</script>
+</html>
