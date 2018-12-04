@@ -7,21 +7,35 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <script src="lib/vue.js"></script>
+    <style>
+    .red{
+        color: red;
+    }
+    .thin{
+        font-weight: 200;
+    }
+    .italic{
+        font-style: italic;
+    }
+    .active{
+        letter-spacing: 0.5em;
+    }
+    </style>
 </head>
 
 <body>
     <div id="app">
         <!-- 传统类写法 -->
-
+        <h1 class='red thin italic active'>你猜我是谁？？？？？？？？？？</h1>
         <!-- vue 传递数组 -->
-
-        <!-- vue 三元表达式 -->
-
-        <!-- 对象替代三元表达式 -->
-
+        <h1 :class='["red", "thin", "italic", "active"]'>你猜我是谁？？？？？？？？？？</h1>
+        
         <!-- 对象 -->
-
+        <h1 :class='["red", "thin", "italic", {active:false}]'>你猜我是谁？？？？？？？？？？</h1>
+        <h1 :class='{red:false,thin:true,italic:true,active:true}'>你猜我是谁？？？？？？？？？？</h1>
+        
         <!-- 变量指向对象 -->
+        <h1 :class='h1class'>你猜我是谁？？？？？？？？？？</h1>
 
     </div>
 </body>
@@ -29,7 +43,7 @@
     var vm = new Vue({
         el: '#app',
         data: {
-
+            h1class: { red: false, thin: true, italic: true, active: true },
         },
         methods: {
         }
