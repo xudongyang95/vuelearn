@@ -30,7 +30,12 @@
                 </label>
                 <label>
                     <input class="btn btn-primary" @click='add' type="button" value="添加">
-                </label>    
+                </label>  
+                <label>
+                    搜索：
+                    <input class="form-control" type="text" v-model='kw'>
+                </label>
+                 
               </div>
         </div>
         
@@ -47,11 +52,11 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for='item in carlist'>
+                <tr v-for='item in search(kw)'>
                     <td>{{ item.id }}</td>
                     <td>{{ item.createtime }}</td>
                     <td>{{ item.name }}</td>
-                    <td><a href="">删除</a></td>
+                    <td><a href="" @click.prevent='del(item.id)'>删除</a></td>
                 </tr>
             </tbody>
         </table>
@@ -65,6 +70,7 @@
         data: {
             carid:null,
             carname:null,
+            kw:'',
             carlist:[
                 {id:1,
                 name:'宝马',
@@ -85,7 +91,39 @@
                 })
                 this.carid = ''
                 this.carname = ''
+            },
+            del(id){
+                // 根据id拿到对象的索引
+                this.carlist.some((item, i)=>{
+                    if(item.id == id){
+                         // 根据索引删除对象
+                        this.carlist.splice(i, 1)
+                        return true
+                    }
+                })
+                // findIndex 语法
+                // list.findIndex(item =>{
+                //    if(item.id == id){return true}
+                //})
+            },
+
+            // 过滤kw
+            search(kw){
+                new_list = []
+                this.carlist.forEach(element => {
+                    if(element.name.indexOf(kw) != -1){
+                        new_list.push(element)
+                    }
+                }
+                )
+                return new_list
+                // list.filter(item=>{})
+                // forEach some filter findIndex  四种不同的遍历
+                // str.includes() 字符串新方法
+                // jq contains
             }
+            // 自动获取焦点
+
         }
     })
 </script>
