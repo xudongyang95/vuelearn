@@ -158,12 +158,15 @@
                     var y = dt.getFullYear()
                     var m = dt.getMonth() + 1
                     var d = dt.getDate()
-                    if (m < 10) {
-                        m = `0${m}`
-                    }
-                    if (d < 10) {
-                        d = `0${d}`
-                    }
+                    // if (m < 10) {
+                    //     m = `0${m}`
+                    // }
+                    // if (d < 10) {
+                    //     d = `0${d}`
+                    // }
+                    // es6 字符串新特性padStart  String.prototype.padStart(maxLength, fillstring='')
+                    m = m.toString().padStart(2,'0')
+                    d = d.toString().padStart(2, '0')
                     return `${y}-${m}-${d}~~~~~~~~~~`
                 }
         }
