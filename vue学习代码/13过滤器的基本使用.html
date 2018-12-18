@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="lib/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <p>
+            {{ msg | msgFormat }}
+            {{ msg | msgFormat2('帅气') }}
+            <!-- 多次调用过滤器 -->
+            {{ msg | msgFormat2('帅气') | msgFormat3('续东')}}
+        </p>
+    </div>
+</body>
+<script>
+    // 定义vue全局过滤器
+    Vue.filter('msgFormat',(msg)=>{
+        // 字符串替换，replace方法第一个参数可以是正则
+        return msg.replace(/强/g, '聪明')
+    })
+
+    // 过滤器传参数
+    Vue.filter('msgFormat2',(msg,newword)=>{
+        //根据参数替换
+        return msg.replace(/强/g, newword)
+    })
+    Vue.filter('msgFormat3',(msg,name)=>{
+        return msg.replace(/我/g, name)
+    })
+
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            msg:'我最强'
+        },
+        methods: {
+        }
+    })
+</script>
+
+</html>

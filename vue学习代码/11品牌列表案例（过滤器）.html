@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="lib/bootstrap-3.3.7-dist/css/bootstrap.css">
+    <!-- <link rel="stylesheet" href="lib/bootstrap-4.0.0-dist/css/bootstrap.css"> -->
+    <script src="lib/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">添加品牌</h3>
+            </div>
+            <div class="panel-body form-inline">
+
+                <label>
+                    Id:
+                    <input v-model='carid' class="form-control" type="text">
+                </label>
+                <label>
+                    Name:
+                    <input v-model='carname' id="" class="form-control" type="text">
+                </label>
+                <label>
+                    <input class="btn btn-primary" @click='add' type="button" value="添加">
+                </label>
+                <label>
+                    搜索：
+                    <input class="form-control" type="text" v-model='kw'>
+                </label>
+
+            </div>
+        </div>
+
+
+
+
+        <table class="table table-bordered table-hover table-striped">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>创建时间</th>
+                    <th>品牌</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for='item in search(kw)'>
+                    <td>{{ item.id }}</td>
+                    <td>{{ item.createtime }}</td>
+                    <td>{{ item.name }}</td>
+                    <td><a href="" @click.prevent='del(item.id)'>删除</a></td>
+                </tr>
+            </tbody>
+        </table>
+
+
+    </div>
+</body>
+<script>
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            carid: null,
+            carname: null,
+            kw: '',
+            carlist: [
+                {
+                    id: 1,
+                    name: '宝马',
+                    createtime: new Date()
+                },
+                {
+                    id: 2,
+                    name: '奔驰',
+                    createtime: new Date()
+                },
+            ],
+        },
+        methods: {
+            add() {
+                this.carlist.push({
+                    id: this.carid,
+                    name: this.carname,
+                    createtime: new Date(),
+                })
+                this.carid = ''
+                this.carname = ''
+            },
+            del(id) {
+                // 根据id拿到对象的索引
+                this.carlist.some((item, i) => {
+                    if (item.id == id) {
+                        // 根据索引删除对象
+                        this.carlist.splice(i, 1)
+                        return true
+                    }
+                })
+                // findIndex 语法
+                // list.findIndex(item =>{
+                //    if(item.id == id){return true}
+                //})
+            },
+
+            // 过滤kw
+            search(kw) {
+                new_list = []
+                this.carlist.forEach(element => {
+                    if (element.name.indexOf(kw) != -1) {
+                        new_list.push(element)
+                    }
+                }
+                )
+                return new_list
+                // list.filter(item=>{})
+                // forEach some filter findIndex  四种不同的遍历
+                // str.includes() 字符串新方法
+                // jq contains
+            }
+            // 自动获取焦点
+        }
+    })
+
+    // 定义过滤器 Vue.filter('name',()=>{}) 
+    // 过滤器中的function 第一个参数规定死了，就是管道符前面的数据
+    Vue.filter('filter',(data)=>{
+        return data + '123'
+    })
+
+</script>
+
+</html>
