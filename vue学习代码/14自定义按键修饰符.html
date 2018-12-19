@@ -26,7 +26,7 @@
                 </label>
                 <label>
                     Name:
-                    <input v-model='carname' id="" class="form-control" type="text">
+                    <input v-model='carname' id="" class="form-control" type="text" @keyup.f2='add'>
                 </label>
                 <label>
                     <input class="btn btn-primary" @click='add' type="button" value="添加">
@@ -69,6 +69,15 @@
     </div>
 </body>
 <script>
+    //自定义全局按键修饰符
+    Vue.config.keyCodes.f2 = 113
+    // = {
+    //     // camelCase won`t work
+    //     f2:113,
+    // }
+
+    
+    //自定义全局过滤器
     Vue.filter('dateFormat', (date) => {
         var dt = new Date(date)
         var y = dt.getFullYear()
